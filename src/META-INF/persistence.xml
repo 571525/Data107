@@ -5,10 +5,11 @@
     http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
     version="2.2">
 	
-	<persistence-unit name="VitnemalPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="Oblig3PersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		
-		<class>no.hvl.dat107.Vitnemal</class>
-        <class>no.hvl.dat107.Karakter</class>
+		<class>dat107.hvl.no.Ansatt</class>
+		<class>dat107.hvl.no.Avdeling</class>
+		<class>dat107.hvl.no.Prosjekt</class>
 		
 		<properties>
 		    <!--  Generelle JPA properties -->
