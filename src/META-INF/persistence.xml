@@ -10,7 +10,7 @@
 		<class>dat107.hvl.no.Ansatt</class>
 		<class>dat107.hvl.no.Avdeling</class>
 		<class>dat107.hvl.no.Prosjekt</class>
-		
+		<class>dat107.hvl.no.ProsjektDeltagelse</class>
 		<properties>
 		    <!--  Generelle JPA properties -->
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

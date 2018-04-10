@@ -4,30 +4,35 @@ DROP SCHEMA IF EXISTS oblig3 CASCADE;
 CREATE SCHEMA oblig3;
 SET search_path TO oblig3;
     
+
 CREATE TABLE Ansatt
 (
-ID SERIAL UNIQUE PRIMARY KEY,
-brukernavn VARCHAR(4) UNIQUE,
-fornavn VARCHAR,
-etternavn VARCHAR,
-dato_ansatt DATE,
-stilling VARCHAR,
-månedslønn INTEGER,
-avdelingsNr INTEGER FOREIGN KEY REFERENCES Avdeling (avdelingsNr), 
-CONSTRAINT rolle VARCHAR FOREIGN KEY REFERENCES Prosjekt(prosjektID) 
+ansattID SERIAL,
+brukernavn VARCHAR(4) UNIQUE NOT NULL,
+fornavn VARCHAR(255) NOT NULL,
+etternavn VARCHAR(255) NOT NULL,
+dato_ansatt DATE NOT NULL,
+stilling VARCHAR(255)NOT NULL,
+månedslønn FLOAT NOT NULL,
+avdID INTEGER NOT NULL,
+--FOREIGN KEY (avdelingsNr) REFERENCES Avdeling (avdelingsNr),
+CONSTRAINT ansattID PRIMARY KEY (ansattID)
 );
 
 CREATE TABLE Avdeling
 (
-	avdelingsNr SERIAL UNIQUE PRIMARY KEY,
-  	navn VARCHAR,
-  	CONSTRAINT chef INTEGER FOREIGN KEY (ID) REFERENCES Ansatt(ID), 
+	avdID SERIAL,
+  	navn VARCHAR(255),
+	chef INTEGER NOT NULL,
+  	CONSTRAINT chef FOREIGN KEY (chef) REFERENCES Ansatt(ansattID),
+  	CONSTRAINT avdID PRIMARY KEY (acdID)
 );
 
 CREATE TABLE Prosjekt (
-	prosjektID SERIAL UNIQUE PRIMARY KEY,
-	navn VARCHAR,
+	prosjektID SERIAL,
+	navn VARCHAR(255),
 	beskrivelse TEXT,
-	
-
+	CONSTRAINT prosjektID PRIMARY KEY (prosjektID)
 );
+
+ALTER TABLE Ansatt ADD CONSTRAINT AvdelingFK FOREIGN KEY (avdID) REFERENCES Avdeling (avdID);

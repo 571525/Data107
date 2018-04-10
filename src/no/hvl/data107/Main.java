@@ -1,10 +1,15 @@
-package dat107.hvl.no;
+package no.hvl.data107;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class Avdeling {
+public class Main {
+	
+
+	public static void main(String[] args) {
+		
+	}
 
 }
