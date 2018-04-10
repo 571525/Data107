@@ -11,9 +11,11 @@ public class Ansatt {
 	@Id
 	@GeneratedValue
 	int ansattID;
+	
 	@ManyToOne
 	@JoinColumn
 	Avdeling avdeling;
+	
 	
 	//@OneToOne (mappedBy = sjef)
 	// Avdeling sjefAvdeling;

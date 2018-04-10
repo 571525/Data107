@@ -12,6 +12,7 @@ public class Avdeling {
 @Id
 @GeneratedValue
 int avdID;
+
 @OneToOne
 @JoinColumn
 Ansatt sjef;
