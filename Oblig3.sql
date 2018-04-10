@@ -9,12 +9,12 @@ CREATE TABLE Ansatt
 (
 ansattId SERIAL,
 brukernavn VARCHAR(4) UNIQUE NOT NULL,
-fornavn VARCHAR(50),
-etternavn VARCHAR(50),
-datoAnsatt DATE,
-stilling VARCHAR(255),
-månedslønn FLOAT,
-avdelingId INTEGER,
+fornavn VARCHAR(50) NOT NULL,
+etternavn VARCHAR(50) NOT NULL,
+datoAnsatt DATE NOT NULL,
+stilling VARCHAR(255) NOT NULL,
+månedslønn FLOAT NOT NULL,
+avdelingId INTEGER NOT NULL,
 --CONSTRAINT avdelingID FOREIGN KEY (avdelingId) REFERENCES Avdeling (avdelingId),
 CONSTRAINT ansattId PRIMARY KEY (ansattId)
 );
@@ -22,7 +22,7 @@ CONSTRAINT ansattId PRIMARY KEY (ansattId)
 CREATE TABLE Avdeling
 (
 	avdelingId SERIAL,
-  	navn VARCHAR(50),
+  	navn VARCHAR(50) NOT NULL,
 	chef INTEGER NOT NULL,
   	CONSTRAINT chef FOREIGN KEY (chef) REFERENCES Ansatt(ansattId),
   	CONSTRAINT avdelingId PRIMARY KEY (avdelingId)
