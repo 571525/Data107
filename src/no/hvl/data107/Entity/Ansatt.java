@@ -16,7 +16,7 @@ public class Ansatt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int ansattId;
     
     private String fornavn;
     private String etternavn;
@@ -25,7 +25,7 @@ public class Ansatt {
     private List<Prosjektdeltagelse> deltagelser;
     
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %d: %s %s", innrykk, id, fornavn, etternavn);
+        System.out.printf("%sAnsatt nr %d: %s %s", innrykk, ansattId, fornavn, etternavn);
     }
     
     public void skrivUtMedProsjekter() {
@@ -43,11 +43,11 @@ public class Ansatt {
     }
 
 	public int getId() {
-		return id;
+		return ansattId;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.ansattId = id;
 	}
 
 	public String getFornavn() {

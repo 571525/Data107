@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,16 +16,17 @@ public class Prosjektdeltagelse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int prosjektdeltagelse_Id;
+    private int prosjektdeltagelseId;
     
     private int timer;
+    private String rolle;
     
     @ManyToOne
-    @JoinColumn(name="Ansatt_Id")
+    @JoinColumn(name="ansattId")
     private Ansatt ansatt;
     
     @ManyToOne
-    @JoinColumn(name="Prosjekt_Id")
+    @JoinColumn(name="prosjektId")
     private Prosjekt prosjekt;
 
     public Prosjektdeltagelse() {}

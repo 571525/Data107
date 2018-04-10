@@ -37,11 +37,12 @@ CREATE TABLE Prosjekt (
 
 CREATE TABLE Prosjektdeltagelse
 (
+  prosjektdeltagelseId SERIAL,
   ansattId INTEGER,
   prosjektId INTEGER,
   timer     INTEGER,
   rolle VARCHAR(100),
-  CONSTRAINT ProsjektdeltagelsePK PRIMARY KEY (ansattId, prosjektId),
+  CONSTRAINT ProsjektdeltagelsePK PRIMARY KEY (prosjektdeltagelseId),
   CONSTRAINT ansattProsjektUnik UNIQUE (ansattId, prosjektId),
   CONSTRAINT ansattFK FOREIGN KEY (ansattId) REFERENCES Ansatt(ansattId),
   CONSTRAINT prosjektFK FOREIGN KEY (prosjektId) REFERENCES Prosjekt(prosjektId)  

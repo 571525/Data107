@@ -14,7 +14,7 @@ public class AnsattEAO {
     private EntityManagerFactory emf;
 
     public AnsattEAO() {
-        emf = Persistence.createEntityManagerFactory("AnsattProsjektPU");
+        emf = Persistence.createEntityManagerFactory("Oblig3PersistenceUnit");
     }
     
     public Ansatt finnAnsattMedId(int id) {
