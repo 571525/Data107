@@ -7,10 +7,10 @@
 	
 	<persistence-unit name="Oblig3PersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		
-		<class>dat107.hvl.no.Ansatt</class>
-		<class>dat107.hvl.no.Avdeling</class>
-		<class>dat107.hvl.no.Prosjekt</class>
-		<class>dat107.hvl.no.ProsjektDeltagelse</class>
+		<class>no.hvl.data107.Entity.Ansatt</class>
+		<class>no.hvl.data107.Entity.Avdeling</class>
+		<class>no.hvl.data107.Entity.Prosjekt</class>
+		<class>no.hvl.data107.Entity.Prosjektdeltagelse</class>
 		<properties>
 		    <!--  Generelle JPA properties -->
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

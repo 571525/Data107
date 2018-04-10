@@ -1,4 +1,4 @@
-package no.hvl.data107;
+package no.hvl.data1007;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
