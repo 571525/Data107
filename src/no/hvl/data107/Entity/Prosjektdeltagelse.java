@@ -31,10 +31,11 @@ public class Prosjektdeltagelse {
 
     public Prosjektdeltagelse() {}
     
-    public Prosjektdeltagelse(Ansatt ansatt, Prosjekt prosjekt, int timer) {
+    public Prosjektdeltagelse(Ansatt ansatt, Prosjekt prosjekt, int timer, String rolle) {
         this.ansatt = ansatt;
         this.prosjekt = prosjekt;
         this.timer = timer;
+        this.rolle = rolle;
         
         //Hvis vi gjør dette her slipper vi å gjøre det i EAO
         ansatt.leggTilProsjektdeltagelse(this);

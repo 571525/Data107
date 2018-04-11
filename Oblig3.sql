@@ -13,8 +13,8 @@ fornavn VARCHAR(50) NOT NULL,
 etternavn VARCHAR(50) NOT NULL,
 datoAnsatt DATE NOT NULL,
 stilling VARCHAR(255) NOT NULL,
-månedslønn FLOAT NOT NULL,
-avdelingId INTEGER NOT NULL,
+maanedsloenn NUMERIC(10,2) NOT NULL,
+avdelingId INTEGER,
 --CONSTRAINT avdelingID FOREIGN KEY (avdelingId) REFERENCES Avdeling (avdelingId),
 CONSTRAINT ansattId PRIMARY KEY (ansattId)
 );
@@ -23,7 +23,7 @@ CREATE TABLE Avdeling
 (
 	avdelingId SERIAL,
   	navn VARCHAR(50) NOT NULL,
-	chef INTEGER NOT NULL,
+	chef INTEGER UNIQUE NOT NULL,
   	CONSTRAINT chef FOREIGN KEY (chef) REFERENCES Ansatt(ansattId),
   	CONSTRAINT avdelingId PRIMARY KEY (avdelingId)
 );
@@ -51,7 +51,7 @@ CREATE TABLE Prosjektdeltagelse
 ALTER TABLE Ansatt ADD CONSTRAINT avdelingFK FOREIGN KEY (avdelingId) REFERENCES Avdeling (avdelingId);
   
 INSERT INTO
-  Ansatt(fornavn, etternavn, brukernavn, datoAnsatt, månedslønn, stilling)
+  Ansatt(fornavn, etternavn, brukernavn, datoAnsatt, maanedsloenn, stilling)
 VALUES
   ('Arne', 'Arnesen', 'arar', '12-12-2012', 1111.11, 'chef'),
   ('Brit', 'Britsen', 'brbr', '11-11-2011', 2222.22, 'chef'),

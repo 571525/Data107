@@ -42,7 +42,7 @@ public class AnsattEAO {
             p = em.merge(p);
             
             //Opprette og lagre en ny prosjektdeltagelse
-            Prosjektdeltagelse prosjektdeltagelse = new Prosjektdeltagelse(a, p, 0);
+            Prosjektdeltagelse prosjektdeltagelse = new Prosjektdeltagelse(a, p, 0, "");
             em.persist(prosjektdeltagelse);
 
 // Gjør dette i konstruktøren til Prosjektdeltagelse            
@@ -99,7 +99,7 @@ public class AnsattEAO {
     private Prosjektdeltagelse finnProsjektdeltagelse(int ansattId, int prosjektId) {
         
         String queryString = "SELECT pd FROM Prosjektdeltagelse pd " 
-                + "WHERE pd.ansatt.id = :ansattId AND pd.prosjekt.id = :prosjektId";
+                + "WHERE pd.ansatt.ansattId = :ansattId AND pd.prosjekt.prosjektId = :prosjektId";
 
         EntityManager em = emf.createEntityManager();
 

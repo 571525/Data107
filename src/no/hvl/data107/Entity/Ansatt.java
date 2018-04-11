@@ -1,4 +1,5 @@
 package no.hvl.data107.Entity;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,12 +21,17 @@ public class Ansatt {
     
     private String fornavn;
     private String etternavn;
+    private String brukernavn;
+    private String stilling;
+    private int avdelingId;
+    private float maanedsloenn;
+    private String datoAnsatt;
     
     @OneToMany(mappedBy="ansatt")
     private List<Prosjektdeltagelse> deltagelser;
     
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %d: %s %s", innrykk, ansattId, fornavn, etternavn);
+        System.out.printf("%sAnsatt nr %d: %s %s,brukernavn: %s, Stilling: %s, Lønn; %f Avd: %d Ansatt: %s", innrykk, ansattId, fornavn, etternavn, brukernavn, stilling, maanedsloenn, avdelingId, datoAnsatt);
     }
     
     public void skrivUtMedProsjekter() {
