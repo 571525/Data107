@@ -5,16 +5,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import no.hvl.data107.Entity.Ansatt;
+import no.hvl.data107.eao.AnsattEAO;
 
 public class Main {
 
     public static void main(String[] args) {
         
-       EntityManagerFactory emf = Persistence.createEntityManagerFactory("Oblig3PersistenceUnit");
-       EntityManager em = emf.createEntityManager();
+       AnsattEAO aEAO = new AnsattEAO();
        
-       Ansatt a = em.find(Ansatt.class, 1);
-       a.skrivUt("");
+       aEAO.leggTilNyAnsatt();
     }
 
 }

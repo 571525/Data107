@@ -1,6 +1,8 @@
 package no.hvl.data107.eao;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.swing.text.DateFormatter;
 
 import no.hvl.data107.Entity.*;
 
@@ -19,6 +22,51 @@ public class AnsattEAO {
 		emf = Persistence.createEntityManagerFactory("Oblig3PersistenceUnit");
 	}
 
+	private Ansatt lesInnNyAnsatt() {
+		Scanner in = new Scanner(System.in);
+		Ansatt a = new Ansatt();
+
+		try {			
+			System.out.println("Angi fornavn: ");
+			a.setFornavn(in.next());
+			System.out.println("Angi etternavn: ");
+			a.setEtternavn(in.next()); 
+			System.out.println("Angi brukernavn (4 bokstaver): ");
+			a.setBrukernavn(in.next()); 
+			System.out.println("Angi stilling: ");
+			a.setStilling(in.next());
+			System.out.println("Angi avdelings ID: ");
+			a.setAvdelingId(Integer.parseInt(in.next())); 
+			System.out.println("Angi månedslønn: ");
+			a.setMaanedsloenn(Float.parseFloat(in.next()));
+			System.out.println("Angi dato ansatt: ");
+			a.setDatoAnsatt(java.time.LocalDate.parse(in.next(), DateTimeFormatter.ISO_LOCAL_DATE));	
+			
+		}catch(Exception e) {
+			System.out.println("Noe gikk galt");
+		}
+		
+		return a;
+	}
+	
+	public void leggTilNyAnsatt() {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		try {
+			tx.begin();
+			Ansatt a = lesInnNyAnsatt();
+			em.persist(a);
+			tx.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			
+		}
+		
+	}
+	
 	public Ansatt finnAnsattMedId(int id) {
 
 		EntityManager em = emf.createEntityManager();
@@ -67,6 +115,43 @@ public class AnsattEAO {
 			em.close();
 		}
 
+	}
+	
+	public void opdaterLønn(Ansatt a, float nyLønn) {
+		
+		EntityManager em = emf.createEntityManager();
+		
+		 try {
+	            em.getTransaction().begin();
+	            a = em.merge(a);
+	            a.setMaanedsloenn(nyLønn);
+	            em.getTransaction().commit();
+	        
+	        } catch (Throwable e) {
+	            e.printStackTrace();
+	            em.getTransaction().rollback();
+	        } finally {
+	            em.close();
+	        }
+		
+	}
+
+public void opdaterStilling(Ansatt a, String nyStilling) {
+		
+		EntityManager em = emf.createEntityManager();
+		
+		 try {
+	            em.getTransaction().begin();
+	            a = em.merge(a);
+	            a.setStilling(nyStilling);
+	            em.getTransaction().commit();  
+	        } catch (Throwable e) {
+	            e.printStackTrace();
+	            em.getTransaction().rollback();
+	        } finally {
+	            em.close();
+	        }
+		
 	}
 
 	public void registrerProsjektdeltagelse(Ansatt a, Prosjekt p) {

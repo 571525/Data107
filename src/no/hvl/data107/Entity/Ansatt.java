@@ -30,14 +30,14 @@ public class Ansatt {
     
     
     private float maanedsloenn;
-    private String datoAnsatt;
+    private java.time.LocalDate datoAnsatt;
     
     @OneToMany(mappedBy="ansatt")
     private List<Prosjektdeltagelse> deltagelser;
     
     public Ansatt() {}
     
-    public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, int avdelingId, float maanedsloenn, String datoAnsatt) {
+    public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, int avdelingId, float maanedsloenn, java.time.LocalDate datoAnsatt) {
     	this.fornavn = fornavn;
         this.etternavn = etternavn;
 	    this.brukernavn = brukernavn;
@@ -129,11 +129,11 @@ public class Ansatt {
 		this.maanedsloenn = maanedsloenn;
 	}
 
-	public String getDatoAnsatt() {
+	public java.time.LocalDate getDatoAnsatt() {
 		return datoAnsatt;
 	}
 
-	public void setDatoAnsatt(String datoAnsatt) {
+	public void setDatoAnsatt(java.time.LocalDate datoAnsatt) {
 		this.datoAnsatt = datoAnsatt;
 	}
 	
