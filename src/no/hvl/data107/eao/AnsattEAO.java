@@ -45,7 +45,7 @@ public class AnsattEAO {
 			}
 			System.out.println("Angi månedslønn: ");
 			a.setMaanedsloenn(Float.parseFloat(in.next()));
-			System.out.println("Angi dato ansatt: ");
+			System.out.println("Angi dato ansatt YYYY-MM-DD: ");
 			a.setDatoAnsatt(java.time.LocalDate.parse(in.next(), DateTimeFormatter.ISO_LOCAL_DATE));	
 			
 		}catch(Exception e) {
@@ -68,7 +68,7 @@ public class AnsattEAO {
 			e.printStackTrace();
 			tx.rollback();
 		}finally {
-			
+			em.close();
 		}
 		
 	}
@@ -90,7 +90,7 @@ public class AnsattEAO {
 
 		EntityManager em = emf.createEntityManager();
 		Ansatt a = null;
-		String queryString = "SELECT a FROM oblig3.Ansatt a" + "WHERE a.brukernavn = :brukernavn";
+		String queryString = "SELECT a FROM Ansatt a" + "WHERE a.brukernavn = :brukernavn";
 
 		try {
 			TypedQuery<Ansatt> query = em.createQuery(queryString, Ansatt.class);
@@ -110,10 +110,11 @@ public class AnsattEAO {
 		List<Ansatt> ansatte;
 
 		try {
-			TypedQuery<Ansatt> query = em.createQuery("SELECT a FROM oblig3.Ansatt a", Ansatt.class);
+			TypedQuery<Ansatt> query = em.createQuery("SELECT a FROM Ansatt a", Ansatt.class);
 			ansatte = query.getResultList();
 			for (Ansatt a : ansatte) {
 				a.skrivUt("");
+				System.out.println();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

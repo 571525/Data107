@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import no.hvl.data107.eao.AvdelingEAO;
+
 
 // JPA-annotations
 @Entity
@@ -38,18 +40,23 @@ public class Ansatt {
     
     public Ansatt() {}
     
-    public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, Avdeling avdeling, float maanedsloenn, java.time.LocalDate datoAnsatt) {
+    public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, int avdelingId, float maanedsloenn, java.time.LocalDate datoAnsatt) {
     	this.fornavn = fornavn;
         this.etternavn = etternavn;
 	    this.brukernavn = brukernavn;
 	    this.stilling = stilling;
-        this.avdeling = avdeling;
+	    try {
+	    AvdelingEAO avd = new AvdelingEAO();
+	    this.avdeling = avd.finnAvdelingMedId(avdelingId);
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+	    }
         this.maanedsloenn = maanedsloenn;
         this.datoAnsatt = datoAnsatt;  	
     }
     
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %d: %s %s,brukernavn: %s, Stilling: %s, Lønn; %f Avd: %d Ansatt: %s", innrykk, ansattId, fornavn, etternavn, brukernavn, stilling, maanedsloenn, avdeling.getNavn(), datoAnsatt);
+        System.out.printf("%sAnsatt nr %d: %s %s,brukernavn: %s, Stilling: %s, Lønn; %f Avd: %s Ansatt: %s", innrykk, ansattId, fornavn, etternavn, brukernavn, stilling, maanedsloenn, avdeling.getNavn(), datoAnsatt);
     }
     
     public void skrivUtMedProsjekter() {
