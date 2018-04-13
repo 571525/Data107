@@ -26,5 +26,4 @@ public class AvdelingEAO {
 		}
 	return avd;
 	}
-	
 }
