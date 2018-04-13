@@ -45,8 +45,9 @@ public class AnsattEAO {
             Prosjektdeltagelse prosjektdeltagelse = new Prosjektdeltagelse(a, p, 0, "");
             em.persist(prosjektdeltagelse);
 
-// Gjør dette i konstruktøren til Prosjektdeltagelse            
-//            //Oppdatere koblinger
+// 			Gjør dette i konstruktøren til Prosjektdeltagelse            
+//           
+              //Oppdatere koblinger
 //            a.leggTilProsjektdeltagelse(prosjektdeltagelse);
 //            p.leggTilProsjektdeltagelse(prosjektdeltagelse);
             

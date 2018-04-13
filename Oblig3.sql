@@ -23,14 +23,14 @@ CREATE TABLE Avdeling
 (
 	avdelingId SERIAL,
   	navn VARCHAR(50) NOT NULL,
-	chef INTEGER UNIQUE NOT NULL,
-  	CONSTRAINT chef FOREIGN KEY (chef) REFERENCES Ansatt(ansattId),
+    sjef INTEGER UNIQUE,
+    CONSTRAINT sjef FOREIGN KEY (sjef) REFERENCES Ansatt(ansattId),
   	CONSTRAINT avdelingId PRIMARY KEY (avdelingId)
 );
 
 CREATE TABLE Prosjekt (
 	prosjektId SERIAL,
-	navn VARCHAR(50),
+	navn VARCHAR(50) NOT NULL,
 	beskrivelse TEXT,
 	CONSTRAINT prosjektId PRIMARY KEY (prosjektId)
 );
@@ -50,13 +50,20 @@ CREATE TABLE Prosjektdeltagelse
 
 ALTER TABLE Ansatt ADD CONSTRAINT avdelingFK FOREIGN KEY (avdelingId) REFERENCES Avdeling (avdelingId);
   
+ INSERT INTO Avdeling (navn) VALUES ('Innkjøp'), ('Utvikling');
+
 INSERT INTO
-  Ansatt(fornavn, etternavn, brukernavn, datoAnsatt, maanedsloenn, stilling)
+  Ansatt(fornavn, etternavn, brukernavn, datoAnsatt, maanedsloenn, stilling, avdelingId)
 VALUES
-  ('Arne', 'Arnesen', 'arar', '12-12-2012', 1111.11, 'chef'),
-  ('Brit', 'Britsen', 'brbr', '11-11-2011', 2222.22, 'chef'),
-  ('Carl', 'Carlsen', 'caca', '10-10-2010', 3333.33, 'kaffe henter'),
-  ('Donald', 'Duck', 'dodu', '09-09-2009', 4444.44, 'programmør');
+  ('Arne', 'Arnesen', 'arar', '12-12-2012', 1111.11, 'chef', 1),
+  ('Brit', 'Britsen', 'brbr', '11-11-2011', 2222.22, 'chef', 2),
+  ('Carl', 'Carlsen', 'caca', '10-10-2010', 3333.33, 'kaffe henter', 1),
+  ('Donald', 'Duck', 'dodu', '09-09-2009', 4444.44, 'programmør', 2);
+
+UPDATE Avdeling SET sjef = 1 WHERE avdelingId = 1;
+UPDATE Avdeling SET sjef = 2 WHERE avdelingId = 2;
+
+ALTER TABLE Avdeling ALTER COLUMN sjef SET NOT NULL; 
 
 INSERT INTO
   Prosjekt(navn, beskrivelse)
@@ -74,13 +81,7 @@ VALUES
   (3, 1, 200, 'kaffe henter'),
   (3, 2, 250, 'stativ'),
   (4, 1, 300, 'kok');
-  
- INSERT INTO 
- Avdeling (navn, chef)  
- VALUES
-  ('Innkjøp', 1),
-  ('Utvikling', 2);
-  
+    
   
  UPDATE Ansatt
  SET avdelingId = 1
