@@ -6,14 +6,14 @@ import javax.persistence.Persistence;
 
 import no.hvl.data107.Entity.Ansatt;
 import no.hvl.data107.eao.AnsattEAO;
+import no.hvl.data107.eao.AvdelingEAO;
 
 public class Main {
 
     public static void main(String[] args) {
         
-       AnsattEAO aEAO = new AnsattEAO();
-       
-       aEAO.leggTilNyAnsatt();
+    	Meny meny = new Meny();
+    	meny.start();
     }
 
 }

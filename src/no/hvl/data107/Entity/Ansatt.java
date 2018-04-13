@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,10 +26,9 @@ public class Ansatt {
     private String brukernavn;
     private String stilling;
     
-   
-    
-    private int avdelingId;
-    
+    @ManyToOne
+    @JoinColumn (name = "avdelingId")
+    private Avdeling avdeling;
     
     private float maanedsloenn;
     private java.time.LocalDate datoAnsatt;
@@ -37,18 +38,18 @@ public class Ansatt {
     
     public Ansatt() {}
     
-    public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, int avdelingId, float maanedsloenn, java.time.LocalDate datoAnsatt) {
+    public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, Avdeling avdeling, float maanedsloenn, java.time.LocalDate datoAnsatt) {
     	this.fornavn = fornavn;
         this.etternavn = etternavn;
 	    this.brukernavn = brukernavn;
 	    this.stilling = stilling;
-        this.avdelingId = avdelingId;
+        this.avdeling = avdeling;
         this.maanedsloenn = maanedsloenn;
         this.datoAnsatt = datoAnsatt;  	
     }
     
     public void skrivUt(String innrykk) {
-        System.out.printf("%sAnsatt nr %d: %s %s,brukernavn: %s, Stilling: %s, Lønn; %f Avd: %d Ansatt: %s", innrykk, ansattId, fornavn, etternavn, brukernavn, stilling, maanedsloenn, avdelingId, datoAnsatt);
+        System.out.printf("%sAnsatt nr %d: %s %s,brukernavn: %s, Stilling: %s, Lønn; %f Avd: %d Ansatt: %s", innrykk, ansattId, fornavn, etternavn, brukernavn, stilling, maanedsloenn, avdeling.getNavn(), datoAnsatt);
     }
     
     public void skrivUtMedProsjekter() {
@@ -113,12 +114,12 @@ public class Ansatt {
 		this.stilling = stilling;
 	}
 
-	public int getAvdelingId() {
-		return avdelingId;
+	public Avdeling getAvdeling() {
+		return avdeling;
 	}
 
-	public void setAvdelingId(int avdelingId) {
-		this.avdelingId = avdelingId;
+	public void setAvdeling(Avdeling avdelingId) {
+		this.avdeling = avdelingId;
 	}
 
 	public float getMaanedsloenn() {

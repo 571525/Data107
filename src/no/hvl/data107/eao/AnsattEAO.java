@@ -36,7 +36,13 @@ public class AnsattEAO {
 			System.out.println("Angi stilling: ");
 			a.setStilling(in.next());
 			System.out.println("Angi avdelings ID: ");
-			a.setAvdelingId(Integer.parseInt(in.next())); 
+			try {
+			int avdId = Integer.parseInt(in.next());
+			Avdeling avd = emf.createEntityManager().find(Avdeling.class, avdId);
+			a.setAvdeling(avd); 
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			System.out.println("Angi månedslønn: ");
 			a.setMaanedsloenn(Float.parseFloat(in.next()));
 			System.out.println("Angi dato ansatt: ");
