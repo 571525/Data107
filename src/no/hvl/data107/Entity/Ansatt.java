@@ -23,12 +23,19 @@ public class Ansatt {
     private String etternavn;
     private String brukernavn;
     private String stilling;
+    
+   
+    
     private int avdelingId;
+    
+    
     private float maanedsloenn;
     private String datoAnsatt;
     
     @OneToMany(mappedBy="ansatt")
     private List<Prosjektdeltagelse> deltagelser;
+    
+    public Ansatt() {}
     
     public Ansatt(String fornavn, String etternavn, String brukernavn, String stilling, int avdelingId, float maanedsloenn, String datoAnsatt) {
     	this.fornavn = fornavn;

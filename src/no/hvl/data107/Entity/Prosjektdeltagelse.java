@@ -43,8 +43,8 @@ public class Prosjektdeltagelse {
     }
     
     public void skrivUt(String innrykk) {
-        System.out.printf("%sDeltagelse: %s %s, %s, %d timer", innrykk, 
-                ansatt.getFornavn(), ansatt.getEtternavn(), prosjekt.getNavn(), timer);
+        System.out.printf("%sDeltagelse: %s %s, %s, %d timer, Rolle: %s", innrykk, 
+                ansatt.getFornavn(), ansatt.getEtternavn(), prosjekt.getNavn(), timer, rolle);
     }
     
 }

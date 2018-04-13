@@ -29,6 +29,25 @@ public class AnsattEAO {
         }
         return ansatt;
     }
+    
+    public Ansatt finnAnsattMedBrukernavn(String brukernavn) {
+
+        EntityManager em = emf.createEntityManager();
+        Ansatt a = null;
+        String queryString = "SELECT a FROM oblig3.Ansatt a" + "WHERE a.brukernavn = :brukernavn";
+        
+        try {
+            TypedQuery<Ansatt> query = em.createQuery(queryString, Ansatt.class);
+            query.setParameter("brukernavn", brukernavn);
+            a = query.getSingleResult();         
+        } catch (NoResultException e) {
+             e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return a;
+    }
+
 
     public void registrerProsjektdeltagelse(Ansatt a, Prosjekt p) {
         
@@ -44,12 +63,6 @@ public class AnsattEAO {
             //Opprette og lagre en ny prosjektdeltagelse
             Prosjektdeltagelse prosjektdeltagelse = new Prosjektdeltagelse(a, p, 0, "");
             em.persist(prosjektdeltagelse);
-
-// 			Gjør dette i konstruktøren til Prosjektdeltagelse            
-//           
-              //Oppdatere koblinger
-//            a.leggTilProsjektdeltagelse(prosjektdeltagelse);
-//            p.leggTilProsjektdeltagelse(prosjektdeltagelse);
             
             tx.commit();
         } catch (Throwable e) {

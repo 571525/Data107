@@ -19,12 +19,20 @@ public class Prosjekt {
     private int prosjektId;
     
     private String navn;
+    private String beskrivelse;
     
     @OneToMany(mappedBy="prosjekt")
     private List<Prosjektdeltagelse> deltagelser;
     
+    public Prosjekt() {}
+    
+    public Prosjekt(String navn, String beskrivelse) {
+    	this.navn = navn;
+    	this.beskrivelse = beskrivelse;
+    }
+    
     public void skrivUt(String innrykk) {
-        System.out.printf("%sProsjekt nr %d: %s", innrykk, prosjektId, navn);
+        System.out.printf("%sProsjekt nr %d: %s: %s", innrykk, prosjektId, navn, beskrivelse);
     }
     
     public void skrivUtMedAnsatte() {

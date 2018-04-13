@@ -1,5 +1,3 @@
--- SQL for en-til-mange-eksemplet gjennomgått i timen tirsdag 3. april 
-
 DROP SCHEMA IF EXISTS oblig3 CASCADE;
 CREATE SCHEMA oblig3;
 SET search_path TO oblig3;
@@ -50,7 +48,7 @@ CREATE TABLE Prosjektdeltagelse
 
 ALTER TABLE Ansatt ADD CONSTRAINT avdelingFK FOREIGN KEY (avdelingId) REFERENCES Avdeling (avdelingId);
   
- INSERT INTO Avdeling (navn) VALUES ('Innkjøp'), ('Utvikling');
+INSERT INTO Avdeling (navn) VALUES ('Innkjøp'), ('Utvikling');
 
 INSERT INTO
   Ansatt(fornavn, etternavn, brukernavn, datoAnsatt, maanedsloenn, stilling, avdelingId)
@@ -62,7 +60,6 @@ VALUES
 
 UPDATE Avdeling SET sjef = 1 WHERE avdelingId = 1;
 UPDATE Avdeling SET sjef = 2 WHERE avdelingId = 2;
-
 ALTER TABLE Avdeling ALTER COLUMN sjef SET NOT NULL; 
 
 INSERT INTO
@@ -81,12 +78,4 @@ VALUES
   (3, 1, 200, 'kaffe henter'),
   (3, 2, 250, 'stativ'),
   (4, 1, 300, 'kok');
-    
-  
- UPDATE Ansatt
- SET avdelingId = 1
- WHERE ansattId = 1 OR ansattID = 2;
  
- UPDATE Ansatt
- SET avdelingId = 2
- WHERE ansattId = 3 OR ansattID = 4;
