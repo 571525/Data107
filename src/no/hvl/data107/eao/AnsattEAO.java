@@ -26,53 +26,56 @@ public class AnsattEAO {
 		Scanner in = new Scanner(System.in);
 		Ansatt a = new Ansatt();
 
-		try {			
+		try {
 			System.out.println("Angi fornavn: ");
 			a.setFornavn(in.next());
 			System.out.println("Angi etternavn: ");
-			a.setEtternavn(in.next()); 
+			a.setEtternavn(in.next());
 			System.out.println("Angi brukernavn (4 bokstaver): ");
-			a.setBrukernavn(in.next()); 
+			a.setBrukernavn(in.next());
 			System.out.println("Angi stilling: ");
 			a.setStilling(in.next());
 			System.out.println("Angi avdelings ID: ");
 			try {
-			int avdId = Integer.parseInt(in.next());
-			Avdeling avd = emf.createEntityManager().find(Avdeling.class, avdId);
-			a.setAvdeling(avd); 
-			}catch (Exception e) {
+				int avdId = Integer.parseInt(in.next());
+				Avdeling avd = emf.createEntityManager().find(Avdeling.class, avdId);
+				a.setAvdeling(avd);
+				avd.leggTillAnsatt(a);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			System.out.println("Angi månedslønn: ");
 			a.setMaanedsloenn(Float.parseFloat(in.next()));
 			System.out.println("Angi dato ansatt YYYY-MM-DD: ");
-			a.setDatoAnsatt(java.time.LocalDate.parse(in.next(), DateTimeFormatter.ISO_LOCAL_DATE));	
-			
-		}catch(Exception e) {
+			a.setDatoAnsatt(java.time.LocalDate.parse(in.next(), DateTimeFormatter.ISO_LOCAL_DATE));
+
+		} catch (Exception e) {
 			System.out.println("Noe gikk galt");
 		}
-		
+
 		return a;
 	}
-	
+
 	public void leggTilNyAnsatt() {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		
+
 		try {
 			tx.begin();
 			Ansatt a = lesInnNyAnsatt();
+			Avdeling avd = a.getAvdeling();
 			em.persist(a);
+			em.merge(avd);
 			tx.commit();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
-		}finally {
+		} finally {
 			em.close();
 		}
-		
+
 	}
-	
+
 	public Ansatt finnAnsattMedId(int id) {
 
 		EntityManager em = emf.createEntityManager();
@@ -123,42 +126,42 @@ public class AnsattEAO {
 		}
 
 	}
-	
+
 	public void opdaterLønn(Ansatt a, float nyLønn) {
-		
+
 		EntityManager em = emf.createEntityManager();
-		
-		 try {
-	            em.getTransaction().begin();
-	            a = em.merge(a);
-	            a.setMaanedsloenn(nyLønn);
-	            em.getTransaction().commit();
-	        
-	        } catch (Throwable e) {
-	            e.printStackTrace();
-	            em.getTransaction().rollback();
-	        } finally {
-	            em.close();
-	        }
-		
+
+		try {
+			em.getTransaction().begin();
+			a = em.merge(a);
+			a.setMaanedsloenn(nyLønn);
+			em.getTransaction().commit();
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
 	}
 
-public void opdaterStilling(Ansatt a, String nyStilling) {
-		
+	public void opdaterStilling(Ansatt a, String nyStilling) {
+
 		EntityManager em = emf.createEntityManager();
-		
-		 try {
-	            em.getTransaction().begin();
-	            a = em.merge(a);
-	            a.setStilling(nyStilling);
-	            em.getTransaction().commit();  
-	        } catch (Throwable e) {
-	            e.printStackTrace();
-	            em.getTransaction().rollback();
-	        } finally {
-	            em.close();
-	        }
-		
+
+		try {
+			em.getTransaction().begin();
+			a = em.merge(a);
+			a.setStilling(nyStilling);
+			em.getTransaction().commit();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
 	}
 
 	public void registrerProsjektdeltagelse(Ansatt a, Prosjekt p) {
@@ -242,6 +245,44 @@ public void opdaterStilling(Ansatt a, String nyStilling) {
 			em.close();
 		}
 		return pd;
+	}
+
+	public void bytAvdeling(int ansattId, int nyAvdId) {
+		EntityManager em = emf.createEntityManager();
+
+		try {
+			if (!erSjefIAvdeling(ansattId)) {
+				em.getTransaction().begin();
+				Ansatt a = em.find(Ansatt.class, ansattId);
+				a.setAvdeling(em.find(Avdeling.class, nyAvdId));
+				em.getTransaction().commit();
+			}
+			else {
+				System.out.println("Kan ikke bytte avdeling da ansatt er sjef");
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			em.close();
+		}
+	}
+
+	public boolean erSjefIAvdeling(int ansattId) {
+		boolean sjef = false;
+		EntityManager em = emf.createEntityManager();
+
+		try {
+			Ansatt a = em.find(Ansatt.class, ansattId);
+			if (a.getAvdeling().getSjef() == a) {
+				sjef = true;
+			}
+		} catch (Exception e) {
+			e.getMessage();
+		} finally {
+			em.close();
+		}
+
+		return sjef;
 	}
 
 }

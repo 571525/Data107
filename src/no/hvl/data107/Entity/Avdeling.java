@@ -59,10 +59,18 @@ public class Avdeling {
 	public void setNavn(String navn) {
 		this.navn = navn;
 	}
+	
+	public void leggTillAnsatt(Ansatt ansatt) {
+		ansatte.add(ansatt);
+	}
+	
+	public void fjernAnsatt(Ansatt ansatt) {
+		ansatte.remove(ansatt);
+	}
 
 	@Override
 	public String toString() {
-		return "Avdeling: ID: " + avdelingId + ", Sjef: " + sjef.getFornavn() + " " + sjef.getEtternavn() + ", Navn: " + navn + "]";
+		return "Avdeling: \n ID: " + avdelingId + ", Sjef: " + sjef.getFornavn() + " " + sjef.getEtternavn() + ", Avdelingsnavn: " + navn;
 	}
 
 	public void skrivUt() {

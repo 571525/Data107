@@ -1,5 +1,7 @@
 package no.hvl.data107.eao;
 
+import java.util.Scanner;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -26,4 +28,26 @@ public class ProsjektEAO {
         }
         return prosjekt;
     }
+    
+    public void leggInnNyttProsjekt() {
+    	EntityManager em = emf.createEntityManager();
+    	Scanner in = new Scanner(System.in);
+    	
+    	try {
+    		System.out.println("Angi navn på prosjekt: ");
+    		String navn = in.nextLine();
+    		System.out.println("Giv beskrivelse av prosjektet: ");
+    		String beskrivelse = in.nextLine();
+    		Prosjekt ny = new Prosjekt(navn, beskrivelse);
+    		em.getTransaction().begin();
+    		em.persist(ny);
+    		em.getTransaction().commit();
+    		System.out.println("Prosjektet er oprettet");
+    	}catch(Exception e) {
+    		em.getTransaction().rollback();
+    	}finally {
+    		em.close();
+    	}
+    }
+    
 }
