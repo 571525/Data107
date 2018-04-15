@@ -39,7 +39,14 @@ public class Prosjekt {
         System.out.println();
         skrivUt("");
         deltagelser.forEach(a -> a.skrivUt("\n   "));
+        int totalTimer = 0;
+        for(int i = 0; i < deltagelser.size(); i++) {
+        	totalTimer += deltagelser.get(i).getTimer();
+        }
+        System.out.println();
+        System.out.println("Total antall timer: " + totalTimer);
     }
+ 
 
     public void leggTilProsjektdeltagelse(Prosjektdeltagelse prosjektdeltagelse) {
         deltagelser.add(prosjektdeltagelse);

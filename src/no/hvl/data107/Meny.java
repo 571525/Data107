@@ -117,10 +117,21 @@ public class Meny {
 					break;
 				}
 				case 12: {
-					
+					System.out.println("Angi ansatt ID: ");
+					int ansId = Integer.parseInt(in.next());
+					System.out.println("Angi projsekt ID: ");
+					int proId = Integer.parseInt(in.next());
+					System.out.println("Angi antall timer du vil tilføje: ");
+					int timer = Integer.parseInt(in.next());
+					ansEAO.førTimerForEtProsjekt(ansId, proId, timer);
+					break;
 				}
 				case 13: {
-					 
+					System.out.println("Angi prosjekt ID: ");
+					int id = Integer.parseInt(in.next());
+					Prosjekt p = proEAO.finnProsjektMedId(id);
+					p.skrivUtMedAnsatte();
+					break;
 				}
 				}
 			} catch (Exception e) {

@@ -233,20 +233,43 @@ public class AnsattEAO {
 		EntityManager em = emf.createEntityManager();
 
 		Prosjektdeltagelse pd = null;
+		
 		try {
 			TypedQuery<Prosjektdeltagelse> query = em.createQuery(queryString, Prosjektdeltagelse.class);
 			query.setParameter("ansattId", ansattId);
 			query.setParameter("prosjektId", prosjektId);
 			pd = query.getSingleResult();
-
 		} catch (NoResultException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 		return pd;
 	}
 
+	public void førTimerForEtProsjekt(int ansattId, int prosjektId, int timer) {
+		EntityManager em = emf.createEntityManager();
+
+		Prosjektdeltagelse pd = finnProsjektdeltagelse(ansattId, prosjektId);
+		try {
+			int nyTimer = pd.getTimer() + timer;
+			pd.setTimer(nyTimer);
+			
+			Prosjekt p = em.find(Prosjekt.class, prosjektId);
+			Ansatt a = finnAnsattMedId(ansattId);
+			
+			em.getTransaction().begin();
+			em.merge(pd);	
+			em.getTransaction().commit();
+			
+			System.out.println(timer + " timer er tilføjet til " + a.getFornavn() + " " +a.getEtternavn() + " på prosjektet: " + p.getNavn());
+		} catch (NoResultException e) {
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+	}
+	
 	public void bytAvdeling(int ansattId, int nyAvdId) {
 		EntityManager em = emf.createEntityManager();
 

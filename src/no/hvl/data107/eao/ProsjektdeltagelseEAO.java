@@ -1,5 +1,6 @@
 package no.hvl.data107.eao;
 
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -48,14 +49,14 @@ public class ProsjektdeltagelseEAO {
 			Prosjekt p = proEAO.finnProsjektMedId(proId);
 			
 			System.out.println("Angi rolle i prosjektet: ");
-			String rolle = in.nextLine();
+			String rolle = in.next();
 			
 			Prosjektdeltagelse prodel = new Prosjektdeltagelse(a, p, 0, rolle);
 			
 			em.getTransaction().begin();
 			em.persist(prodel);
 			em.getTransaction().commit();
-			System.out.println("Ansatt er tilføjet prosjektet");
+			System.out.println("Ansatt" + a.getFornavn() +" " + a.getEtternavn() + " er tilføjet prosjektet: " + p.getNavn());
 
 		} catch (Exception e) {
 			em.getTransaction().rollback();
@@ -64,5 +65,4 @@ public class ProsjektdeltagelseEAO {
 		}
 
 	}
-
 }
